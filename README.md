@@ -18,3 +18,11 @@ Navigate to project folder then run following command.
 $ npm install
 $ npm run dev
 ```
+
+### Deploying to Github Pages
+
+Run the following command to deploy to github pages.
+
+```
+$ npm run build
+```
