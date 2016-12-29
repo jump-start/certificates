@@ -1,31 +1,29 @@
 <template>
-  <div id="app">
-    <div class="ui centered grid">
-      <div class="six wide tablet ten wide computer column">
-        <hello></hello>
+  <div>
+    <div class="ui pointing menu">
+      <a class="item">
+        Home
+      </a>
+
+      <div class="right menu">
+        <div class="item">
+          <div class="ui transparent icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="ui segment">
+      <transition name="fade" mode="out-in">
+        <router-view class="child-view"></router-view>
+      </transition>
     </div>
   </div>
 </template>
 
-<script>
-  import Hello from './components/Hello';
-
-  export default {
-    name: 'app',
-    components: {
-      Hello,
-    },
-  };
-</script>
-
 <style>
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
     margin-top: 20px;
   }
 </style>
