@@ -7,10 +7,7 @@
 
       <div class="right menu">
         <div class="item">
-          <div class="ui transparent icon input">
-            <input type="text" placeholder="Search...">
-            <i class="search link icon"></i>
-          </div>
+          <search-bar></search-bar>
         </div>
       </div>
     </div>
@@ -27,3 +24,14 @@
     margin-top: 20px;
   }
 </style>
+
+<script>
+  import SearchBar from './components/SearchBar';
+
+  export default {
+    components: {
+      SearchBar
+    }
+  };
+  
+</script>
