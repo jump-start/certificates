@@ -6,20 +6,18 @@
 </template>
 
 <script>
+  import Certificates from '../resources/certificates';
+
   export default {
     data() {
       return {
-        searchTerm: ''
+        searchTerm: '',
+        result: []
       };
     },
     methods: {
       search() {
-        return [
-          {
-            title: 'Certificates',
-            description: 'Lorem ipsum'
-          }
-        ];
+        this.result = Certificates.data;
       }
     }
   };

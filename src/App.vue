@@ -11,11 +11,14 @@
         </div>
       </div>
     </div>
-    <div class="ui segment">
+    <!-- <div class="ui segment">
       <transition name="fade" mode="out-in">
         <router-view class="child-view"></router-view>
       </transition>
-    </div>
+    </div> -->
+    <li v-for="(item, index) in certificates">
+      {{item.title}}
+    </li>
   </div>
 </template>
 
@@ -27,11 +30,17 @@
 
 <script>
   import SearchBar from './components/SearchBar';
+  import Certificates from './resources/certificates';
 
   export default {
+    data() {
+      return {
+        certificates: Certificates.data
+      };
+    },
     components: {
       SearchBar
     }
   };
-  
+
 </script>
