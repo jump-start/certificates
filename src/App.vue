@@ -7,7 +7,7 @@
 
       <div class="right menu">
         <div class="item">
-          <search-bar></search-bar>
+          <search-bar v-on:search="update"></search-bar>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
       </transition>
     </div> -->
     <li v-for="(item, index) in certificates">
-      {{item.title}}
+      {{item}}
     </li>
   </div>
 </template>
@@ -30,13 +30,17 @@
 
 <script>
   import SearchBar from './components/SearchBar';
-  import Certificates from './resources/certificates';
 
   export default {
     data() {
       return {
-        certificates: Certificates.data
+        certificates: SearchBar.methods.get()
       };
+    },
+    methods: {
+      update(data) {
+        this.certificates = data;
+      }
     },
     components: {
       SearchBar

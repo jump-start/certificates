@@ -3,6 +3,10 @@ export default {
     {
       title: 'Certificates',
       description: 'Lorem ipsum'
+    },
+    {
+      title: 'Certificates 2',
+      description: 'lulz'
     }
   ]
 };
