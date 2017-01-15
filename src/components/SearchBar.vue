@@ -15,6 +15,11 @@
     sort(x, y) {
       return (x.title > y.title) - (x.title < y.title);
     },
+    clear() {
+      console.log(this.data().searchTerm);
+      this.searchTerm = '';
+      this.isSearchValid = true;
+    },
     data() {
       return {
         searchTerm: '',

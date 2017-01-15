@@ -78,6 +78,7 @@
         this.numberOfResults = data.length;
       },
       reset() {
+        SearchBar.clear();
         this.hasSearched = false;
         this.certificates = SearchBar.all();
         this.currentPageCertificates = SearchBar.all().slice(0, 25);
