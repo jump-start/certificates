@@ -16,9 +16,22 @@
         <router-view class="child-view"></router-view>
       </transition>
     </div> -->
-    <li v-for="(item, index) in certificates">
-      {{item}}
-    </li>
+    <div id="resultsCount" v-if="hasSeached">{{numberOfResults}} results</div>
+
+    <div class="ui list">
+      <div v-for="(item, index) in certificates" class="item">
+        <i class="book icon"></i>
+        <div class="content">
+          <a class="header">{{item.title}}</a>
+          <div class="description">{{item.description}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pagination">
+      <pagination></pagination>
+    </div>
+
   </div>
 </template>
 
@@ -26,24 +39,39 @@
   #app {
     margin-top: 20px;
   }
+
+  #resultsCount {
+    padding-bottom: 10px;
+    font-style: italic;
+  }
+
+  #pagination {
+    padding-top: 20px;
+  }
 </style>
 
 <script>
   import SearchBar from './components/SearchBar';
+  import Pagination from './components/Pagination';
 
   export default {
     data() {
       return {
-        certificates: SearchBar.methods.get()
+        hasSeached: false,
+        numberOfResults: 0,
+        certificates: SearchBar.all()
       };
     },
     methods: {
       update(data) {
+        this.hasSeached = true;
         this.certificates = data;
+        this.numberOfResults = data.length;
       }
     },
     components: {
-      SearchBar
+      SearchBar,
+      Pagination
     }
   };
 
