@@ -1,12 +1,26 @@
 export default {
-  data: [
-    {
-      title: 'Certificates',
-      description: 'Lorem ipsum'
-    },
-    {
-      title: 'Certificates 2',
-      description: 'lulz'
+  // data: [
+  //   {
+  //     title: 'C# ASP.NET',
+  //     price: 20.99,
+  //     description: 'C# ASP.NET Description'
+  //   },
+  //   {
+  //     title: 'C#',
+  //     price: 10.50,
+  //     description: 'C# Description'
+  //   }
+  // ]
+  data() {
+    const data = [];
+    for (let i = 1; i < 31; i += 1) {
+      data.push({
+        title: `${i}`,
+        price: 10,
+        description: `${i} Description`
+      });
     }
-  ]
+
+    return data;
+  }
 };
