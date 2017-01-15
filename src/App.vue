@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui pointing menu">
-      <a class="item">
+      <a v-on:click="reset" class="item">
         Home
       </a>
 
@@ -16,17 +16,24 @@
         <router-view class="child-view"></router-view>
       </transition>
     </div> -->
-    <div id="resultsCount" v-if="hasSeached">{{numberOfResults}} results</div>
+    <div id="resultsCount" v-if="hasSearched">{{numberOfResults}} results</div>
 
-    <div class="ui list">
-      <div v-for="(item, index) in certificates" class="item">
-        <i class="book icon"></i>
-        <div class="content">
-          <a class="header">{{item.title}}</a>
-          <div class="description">{{item.description}}</div>
-        </div>
-      </div>
-    </div>
+    <table class="ui striped table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in currentPageCertificates" class="item">
+          <td class="three wide">{{item.title}}</td>
+          <td class="two wide">£{{item.price.toFixed(2)}}</td>
+          <td>{{item.description}}</td>
+        </tr>
+      </tbody>
+    </table>
 
     <div id="pagination">
       <pagination></pagination>
@@ -57,16 +64,23 @@
   export default {
     data() {
       return {
-        hasSeached: false,
+        hasSearched: false,
         numberOfResults: 0,
-        certificates: SearchBar.all()
+        certificates: SearchBar.all(),
+        currentPageCertificates: SearchBar.all().slice(0, 25)
       };
     },
     methods: {
       update(data) {
-        this.hasSeached = true;
+        this.hasSearched = true;
         this.certificates = data;
+        this.currentPageCertificates = data.slice(0, 25);
         this.numberOfResults = data.length;
+      },
+      reset() {
+        this.hasSearched = false;
+        this.certificates = SearchBar.all();
+        this.currentPageCertificates = SearchBar.all().slice(0, 25);
       }
     },
     components: {
