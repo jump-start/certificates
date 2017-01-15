@@ -10,7 +10,10 @@
 
   export default {
     all() {
-      return Certificates.data;
+      return Certificates.data().sort(this.sort);
+    },
+    sort(x, y) {
+      return (x.title > y.title) - (x.title < y.title);
     },
     data() {
       return {
@@ -28,7 +31,7 @@
         if (this.searchTerm.length > 0) {
           this.isSearchValid = true;
 
-          const certificates = Certificates.data;
+          const certificates = Certificates.data();
 
           for (let i = 0; i < certificates.length; i += 1) {
             if (certificates[i].title.toUpperCase().includes(this.searchTerm.toUpperCase())) {
