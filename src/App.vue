@@ -60,6 +60,7 @@
 <script>
   import SearchBar from './components/SearchBar';
   import Pagination from './components/Pagination';
+  import EventBus from './components/event-bus';
 
   export default {
     data() {
@@ -78,10 +79,10 @@
         this.numberOfResults = data.length;
       },
       reset() {
-        SearchBar.clear();
         this.hasSearched = false;
         this.certificates = SearchBar.all();
         this.currentPageCertificates = SearchBar.all().slice(0, 25);
+        EventBus.$emit('reset');
       }
     },
     components: {

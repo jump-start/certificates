@@ -7,6 +7,7 @@
 
 <script>
   import Certificates from '../resources/certificates';
+  import EventBus from './event-bus';
 
   export default {
     all() {
@@ -14,11 +15,6 @@
     },
     sort(x, y) {
       return (x.title > y.title) - (x.title < y.title);
-    },
-    clear() {
-      console.log(this.data().searchTerm);
-      this.searchTerm = '';
-      this.isSearchValid = true;
     },
     data() {
       return {
@@ -50,7 +46,16 @@
         this.$emit('search', results);
 
         this.isSearching = false;
+      },
+      clear() {
+
       }
+    },
+    created() {
+      EventBus.$on('reset', () => {
+        this.searchTerm = '';
+        this.isSearchValid = true;
+      });
     }
   };
 </script>
