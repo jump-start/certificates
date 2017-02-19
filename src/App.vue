@@ -14,20 +14,34 @@
 
     <div id="resultsCount" v-if="hasSearched">{{numberOfResults}} results</div>
 
-    <table class="ui striped table">
+    <table class="ui striped table accordion">
       <thead>
         <tr>
+          <th class="one wide">
           <th>Title</th>
           <th>Price</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in currentPageCertificates" class="item">
-          <td class="three wide">{{item.title}}</td>
-          <td class="two wide">£{{item.price.toFixed(2)}}</td>
-          <td>{{item.description}}</td>
-        </tr>
+        <template v-for="(item, index) in currentPageCertificates">
+          <tr class="item">
+            <td>
+              <i class="dropdown icon hover" :class="{rotated: !activeCertificates[item.id], counterclockwise: !activeCertificates[item.id]}" @click="toggleActiveCertificate(item.id)"></i>
+            </td>
+            <td class="three wide">{{item.title}}</td>
+            <td class="two wide">£{{item.price.toFixed(2)}}</td>
+            <td>{{item.description.substring(0, 100)}}...</td>
+          </tr>
+          <tr v-if="activeCertificates[item.id]">
+            <td colspan="1"></td>
+            <td colspan="3">
+              <div class="ui segment">
+                {{item.description}}
+              </div>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
 
@@ -51,6 +65,10 @@
   #pagination {
     padding-top: 20px;
   }
+
+  .hover {
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -65,7 +83,8 @@
         hasSearched: false,
         numberOfResults: 0,
         certificates: SearchBar.all(),
-        page: 1
+        page: 1,
+        activeCertificates: []
       };
     },
     computed: {
@@ -95,11 +114,19 @@
       },
       filterResults(pageNumber) {
         this.page = pageNumber;
+      },
+      toggleActiveCertificate(certificateId) {
+        this.activeCertificates.splice(certificateId, 1, !this.activeCertificates[certificateId]);
       }
     },
     components: {
       SearchBar,
       Pagination
+    },
+    created() {
+      for (let i = 0; i < this.certificates.length; i += 1) {
+        this.activeCertificates[this.certificates[i].id] = false;
+      }
     }
   };
 

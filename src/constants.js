@@ -1,5 +1,5 @@
 const constants = {
-  resultsPerPage: 25
+  resultsPerPage: 15
 };
 
 export default constants;
