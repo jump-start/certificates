@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="ui pointing menu">
-      <a v-on:click="reset" class="item">
+      <a @click="reset" class="item">
         Home
       </a>
 
       <div class="right menu">
         <div class="item">
-          <search-bar v-on:search="update"></search-bar>
+          <search-bar @search="update"></search-bar>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
     </table>
 
     <div id="pagination">
-      <pagination v-on:pageChange="filterResults" :currentPage="page" :totalPages="totalPages"></pagination>
+      <pagination @pageChange="filterResults" :currentPage="page" :totalPages="totalPages"></pagination>
     </div>
 
   </div>
@@ -109,7 +109,7 @@
         this.hasSearched = false;
         this.certificates = SearchBar.all();
         this.currentPageCertificates = SearchBar.all().slice(0, Constants.resultsPerPage);
-        this.page = 0;
+        this.page = 1;
         EventBus.$emit('reset');
       },
       filterResults(pageNumber) {
