@@ -1,20 +1,21 @@
 <template>
   <div v-bind:class="{ error: !isSearchValid, 'loading': isSearching }" class="ui transparent icon input">
     <input id="search-bar" v-model="searchTerm" type="text" placeholder="Search...">
-    <i v-on:click="search()" class="search link icon"></i>
+    <i @click="search()" class="search link icon"></i>
   </div>
 </template>
 
 <script>
   import Certificates from '../resources/certificates';
-  import EventBus from './event-bus';
+  import EventBus from '../event-bus';
+
+  function sort(x, y) {
+    return (x.title > y.title) - (x.title < y.title);
+  }
 
   export default {
     all() {
-      return Certificates.data().sort(this.sort);
-    },
-    sort(x, y) {
-      return (x.title > y.title) - (x.title < y.title);
+      return Certificates.data().sort(sort);
     },
     data() {
       return {
@@ -46,9 +47,6 @@
         this.$emit('search', results);
 
         this.isSearching = false;
-      },
-      clear() {
-
       }
     },
     created() {

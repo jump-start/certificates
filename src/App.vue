@@ -11,11 +11,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="ui segment">
-      <transition name="fade" mode="out-in">
-        <router-view class="child-view"></router-view>
-      </transition>
-    </div> -->
+
     <div id="resultsCount" v-if="hasSearched">{{numberOfResults}} results</div>
 
     <table class="ui striped table">
@@ -36,7 +32,7 @@
     </table>
 
     <div id="pagination">
-      <pagination></pagination>
+      <pagination v-on:pageChange="filterResults" :currentPage="page" :totalPages="totalPages"></pagination>
     </div>
 
   </div>
@@ -60,7 +56,8 @@
 <script>
   import SearchBar from './components/SearchBar';
   import Pagination from './components/Pagination';
-  import EventBus from './components/event-bus';
+  import EventBus from './event-bus';
+  import Constants from './constants';
 
   export default {
     data() {
@@ -68,21 +65,36 @@
         hasSearched: false,
         numberOfResults: 0,
         certificates: SearchBar.all(),
-        currentPageCertificates: SearchBar.all().slice(0, 25)
+        page: 1
       };
+    },
+    computed: {
+      totalPages: function totalPages() {
+        return Math.ceil(this.certificates.length / Constants.resultsPerPage);
+      },
+      currentPageCertificates: function currentPageCertificates() {
+        const offset = (this.page - 1) * Constants.resultsPerPage;
+
+        return this
+          .certificates
+          .slice(offset, Constants.resultsPerPage + offset);
+      }
     },
     methods: {
       update(data) {
         this.hasSearched = true;
         this.certificates = data;
-        this.currentPageCertificates = data.slice(0, 25);
         this.numberOfResults = data.length;
       },
       reset() {
         this.hasSearched = false;
         this.certificates = SearchBar.all();
-        this.currentPageCertificates = SearchBar.all().slice(0, 25);
+        this.currentPageCertificates = SearchBar.all().slice(0, Constants.resultsPerPage);
+        this.page = 0;
         EventBus.$emit('reset');
+      },
+      filterResults(pageNumber) {
+        this.page = pageNumber;
       }
     },
     components: {

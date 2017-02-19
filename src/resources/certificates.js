@@ -13,7 +13,7 @@ export default {
   // ]
   data() {
     const data = [];
-    for (let i = 1; i < 31; i += 1) {
+    for (let i = 1; i < 1000; i += 1) {
       data.push({
         title: `${i}`,
         price: 10,
