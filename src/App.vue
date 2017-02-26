@@ -12,7 +12,9 @@
       </div>
     </div>
 
-    <div id="resultsCount" v-if="hasSearched">{{numberOfResults}} results</div>
+    <div id="resultsCount" v-if="hasSearched">
+      <i>{{numberOfResults}} results</i>
+    </div>
 
     <table class="ui striped table accordion">
       <thead>
@@ -45,7 +47,7 @@
       </tbody>
     </table>
 
-    <div id="pagination">
+    <div v-if="isPaginationVisible" id="pagination">
       <pagination @pageChange="filterResults" :currentPage="page" :totalPages="totalPages"></pagination>
     </div>
 
@@ -59,7 +61,6 @@
 
   #resultsCount {
     padding-bottom: 10px;
-    font-style: italic;
   }
 
   #pagination {
@@ -97,6 +98,9 @@
         return this
           .certificates
           .slice(offset, Constants.resultsPerPage + offset);
+      },
+      isPaginationVisible: function isPaginationVisible() {
+        return this.certificates.length > Constants.resultsPerPage;
       }
     },
     methods: {
